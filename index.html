@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where You Work</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="landing is-preloaded">
+    <div id="page-wrapper">
+        <header id="header" class="">
+		    <h1><a href="index.html">Where You Work</a></h1>
+			    <nav id="nav">
+				    <ul>
+					    <li class="special">
+						    <a href="#menu" class="menuToggle"><span>Add Job</span></a>
+						    <div id="menu">
+							    <form action="#">
+                                    <label for="name">Name: </label>
+                                    <input type="text" class="name">
+                                    <label for="street">Street: </label>
+                                    <input type="text" class="street">
+                                    <label for="street">State: </label>
+                                    <input type="text" class="state">
+                                    <label for="profit">Profit: </label>
+                                    <input type="text" class="profit">
+                                    <input type="submit" class="btn">
+                                </form>
+						    </div>
+					    </li>
+				    </ul>
+			    </nav>
+	    </header>
+        <div id="content-wrapper">
+            <h2>Your Jobs</h2>
+            <div class="content">
+                <div id="map"></div>
+                <div id="add-job">
+                    <h2>Jobs</h2>
+                    <ul class="jobList">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    		<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuTBLIJuSzztYub_-tdQNXTPIvkxPWVL4&callback=initMap" defer></script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			<script src="assets/js/main.js"></script>
+</body>
+</html>
