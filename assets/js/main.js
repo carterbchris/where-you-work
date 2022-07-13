@@ -42,9 +42,13 @@ function locationMaker() {
 		if (name) {
 			if (remove == 'no') {
 				locations.push([name, lat, lng, fullAddress, profit])
+				console.log(locations)
 				return locations
 			} else if (remove == 'yes') {
 				let tempLocations = locations.filter(value => {
+					if (value[0].replace(' ', '') == name) {
+						addProfit("no", value[4])
+					}
 					return value[0].replace(' ', '') != name;
 				});
 				locations = tempLocations
@@ -112,18 +116,38 @@ document.addEventListener('click', function (e) {
 	}
 });
 
+function addUpProfit() {
+	let totalProfit = 0;
+	function addTheProfits(add, profit) {
+		if (add == "yes") {
+			totalProfit += parseInt(profit)
+		} else if (add == "no") {
+			totalProfit -= parseInt(profit)
+		}
+		document.querySelector('#total-profit').innerHTML = `${totalProfit}`
+		return totalProfit
+	}
+	return addTheProfits
+}
+
+const addProfit = addUpProfit()
+
 function submit() {
 	let name = document.querySelector('.name').value || document.querySelector('.editname').value;
 	let street = document.querySelector('.street').value || document.querySelector('.editstreet').value
 	let state = document.querySelector('.state').value || document.querySelector('.editstate').value
 	let profit = document.querySelector('.profit').value || document.querySelector('.editprofit').value
 	if (name && street && state && profit) {
+		addProfit("yes", profit)
 		let unqName = name + unqId()
 		geocode(unqName, street, state, profit)
 		let li = document.createElement('li')
 		li.id = unqName.replace(' ', '')
 		li.className = "job-card"
-		li.innerHTML = `<h3>${name}</h3><button type="button" id="${unqName}btn" class="deletebtn">Delete</button><button type="button" id="${unqName}edit" class="editbtn">Edit</button>`
+		li.innerHTML = `<h3>${name}</h3><div class="job-card detail-card">
+						<span class="detail-address">${street}</span>
+						<span class="detail-profit">Profit: $${profit}</span>
+		</div><button type="button" id="${unqName}btn" class="deletebtn">Delete</button><button type="button" id="${unqName}edit" class="editbtn">Edit</button>`
 		document.querySelector('.jobList').appendChild(li)
 	}
 	document.querySelector('.name').value = ""
@@ -158,8 +182,13 @@ function edit(e) {
 	for (let i = 0; i < array.length; i++) {
 		if (array[i][0].replace(' ', '') === targetId) {
 			name = array[i][0].slice(0, -1)
-			street = array[i][3]
-			state = array[i][3].split(', ')[2].split(' ')[0]
+			if (array[i][3].split(', ').length <= 2) {
+				state = array[i][3].split(', ')[0]
+				street = " "
+			} else {
+				state = array[i][3].split(', ')[2].split(' ')[0]
+				street = array[i][3].split(', ')[0].concat(", " + array[i][3].split(', ')[1])
+			}
 			profit = array[i][4]
 		}
 	}
